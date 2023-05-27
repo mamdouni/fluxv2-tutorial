@@ -67,6 +67,7 @@ flux create kustomization fluxv2-tutorial-deployment \
 --prune=true \
 --target-namespace=fluxv2-tutorial-deployment \
 --namespace=fluxv2-tutorial-deployment \
+--verbose \
 --export > kustomizations/fluxv2-tutorial-deployment-kustomization.yaml
 ```
 
@@ -76,9 +77,12 @@ flux create kustomization fluxv2-tutorial-deployment \
 - target-namespace : this will override the namespaces declared in the manifest files
 - namespace : the home for the kustomization resource will be also the fluxv2-tutorial-deployment namespace
 
+Now let's create kustomizations files :
+
 ```bash
-cat kustomizations/fluxv2-tutorial-deployment-kustomization.yaml
+cd sources && kustomize create --autodetect
 ```
 
-```yaml
+```bash
+cd .. && cd kustomizations && kustomize create --autodetect && ..
 ```
