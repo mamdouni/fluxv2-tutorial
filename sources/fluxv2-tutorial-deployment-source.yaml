@@ -1,0 +1,13 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: GitRepository
+metadata:
+  name: fluxv2-tutorial-deployment
+  namespace: fluxv2-tutorial-deployment
+spec:
+  interval: 1m0s
+  ref:
+    branch: main
+  secretRef:
+    name: fluxv2-tutorial-deployment
+  url: ssh://git@github.com/mamdouni/fluxv2-tutorial-deployment.git
