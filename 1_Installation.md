@@ -6,6 +6,12 @@ You can check this video for the full installation :
 First of all, you need to generate a token with admin permission :
 - https://github.com/settings/tokens
 
+By the way, this token will create a read only deploy key. check the deploy keys from the repo settings.
+You can check the pub/private keys content using this command (after installtion) :
+```bash
+kubectl -n flux-system get secret flux-system -o json | jq '.data | map_values(@base64d)'
+```
+
 Export it into an environment variable :
 
 ```bash
@@ -74,3 +80,20 @@ replicaset.apps/kustomize-controller-6f8f78f589          1         1         1  
 replicaset.apps/notification-controller-6cc8544455       1         1         1       19m
 replicaset.apps/source-controller-c54dc854f              1         1         1       19m
 ```
+
+Check the source-controller or the kustomization-controller and you'll find that the reconciliation will happen each 10 minutes (10m0s). You can change of course this parameter.
+
+To force the flux reconciliation, you can use this command :
+```bash
+flux reconcile source git flux-system && flux reconcile kustomization flux-system
+```
+
+To check erros, you can check the log of the source or the kustomization pods or you can use this command :
+```bash
+flux logs --level=error
+```
+
+docker exec -it --user root kong sh
+
+You can also check the devoxx demo here :
+- https://github.com/kalioz/fluxv2-demo/blob/main/docs/00.requirements.md
