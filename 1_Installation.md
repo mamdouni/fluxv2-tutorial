@@ -1,5 +1,7 @@
 # Installation
 
+## Token generation
+
 You can check this video for the full installation :
 - https://app.pluralsight.com/course-player?clipId=5e85279b-951e-4000-9844-aa7aedd8ce01
 
@@ -7,7 +9,7 @@ First of all, you need to generate a token with admin permission :
 - https://github.com/settings/tokens
 
 By the way, this token will create a read only deploy key. check the deploy keys from the repo settings.
-You can check the pub/private keys content using this command (after installtion) :
+You can check the pub/private keys content using this command (after the set up of course) :
 ```bash
 kubectl -n flux-system get secret flux-system -o json | jq '.data | map_values(@base64d)'
 ```
@@ -17,6 +19,8 @@ Export it into an environment variable :
 ```bash
 export GITHUB_TOKEN=your-token
 ```
+
+## Set Up
 
 And run this command :
 ```bash
@@ -88,12 +92,24 @@ To force the flux reconciliation, you can use this command :
 flux reconcile source git flux-system && flux reconcile kustomization flux-system
 ```
 
+## Debug
+
 To check erros, you can check the log of the source or the kustomization pods or you can use this command :
 ```bash
 flux logs --level=error
 ```
 
-docker exec -it --user root kong sh
+```bash
+k get pods --all-namespaces
+```
+
+```bash
+ k logs source-controller-68c754f876-xgkdh -n flux-system
+```
+
+```bash
+k logs kustomize-controller-787d5575fc-f25nw -n flux-system
+```
 
 You can also check the devoxx demo here :
 - https://github.com/kalioz/fluxv2-demo/blob/main/docs/00.requirements.md

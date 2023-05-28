@@ -23,10 +23,10 @@ drwxr-xr-x 1 Mohamed-Ali 197121    0 mai   27 22:22 kustomizations/
 
 Now let's create the git flux source :
 ```bash
-flux create source git fluxv2-tutorial-deployment \
+flux create source git fluxv2-tutorial-deployment-source \
 --url=ssh://git@github.com/mamdouni/fluxv2-tutorial-deployment.git \
 --branch=main \
---secret-ref=fluxv2-tutorial-deployment \
+--secret-ref=fluxv2-tutorial-deployment-secret \
 --namespace=fluxv2-tutorial-deployment \
 --export > sources/fluxv2-tutorial-deployment-source.yaml
 ```
@@ -53,7 +53,7 @@ spec:
   ref:
     branch: main
   secretRef:
-    name: fluxv2-tutorial-deployment
+    name: fluxv2-tutorial-deployment-secret
   url: ssh://git@github.com/mamdouni/fluxv2-tutorial-deployment.git
 ```
 
@@ -61,8 +61,8 @@ spec:
 ## Kustomization Customs Resource
 
 ```bash
-flux create kustomization fluxv2-tutorial-deployment \
---source=GitRepository/fluxv2-tutorial-deployment.fluxv2-tutorial-deployment
+flux create kustomization fluxv2-tutorial-deployment-kustomization \
+--source=GitRepository/fluxv2-tutorial-deployment-source.fluxv2-tutorial-deployment
 --path=./ \
 --prune=true \
 --target-namespace=fluxv2-tutorial-deployment \
@@ -71,7 +71,7 @@ flux create kustomization fluxv2-tutorial-deployment \
 --export > kustomizations/fluxv2-tutorial-deployment-kustomization.yaml
 ```
 
-- GitRepository/fluxv2-tutorial-deployment.fluxv2-tutorial-deployment : GitRepository/${The source name}.${The namespace}
+- GitRepository/fluxv2-tutorial-deployment-source.fluxv2-tutorial-deployment : GitRepository/${The source name}.${The namespace}
 - path : The path to look for kustomizations and manifest yaml files
 - prune : inform the kustomization controller to garbage collect any resources that are removed from the deployment repo
 - target-namespace : this will override the namespaces declared in the manifest files
