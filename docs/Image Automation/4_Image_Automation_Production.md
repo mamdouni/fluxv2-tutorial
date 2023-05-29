@@ -202,8 +202,13 @@ k logs image-reflector-controller-666f9d9bf7-b89z8 -n flux-system
 ```
 ## References
 
+- https://regex101.com/r/UIll5E/1
 - https://app.pluralsight.com/course-player?clipId=abfc7f29-f092-4a2e-ae0a-f5aab3ebac20
 - https://app.pluralsight.com/course-player?clipId=bf402016-a213-40a0-a852-5859f6c90132
 - https://fluxcd.io/flux/components/image/imageupdateautomations/#commit-message-template-data
+- https://fluxcd.io/flux/components/image/imagepolicies/#filter-tags
+- https://semver.org/
 - https://github.com/mamdouni/k8s-debugger
+- https://github.com/fluxcd/image-reflector-controller/issues/73
+- https://fluxcd.io/flux/cmd/flux_create_image_policy/
 - https://regex101.com/r/Ly7O1x/3/
