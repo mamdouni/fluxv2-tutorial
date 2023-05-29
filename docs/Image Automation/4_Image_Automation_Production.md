@@ -36,6 +36,8 @@ spec:
 
 ```
 
+well this is not sufficient, check the real file from the sources to get a more updated version.
+
 ## Automate image update
 
 First of all, you need to add the marker to image you need to update by specifing the namespace and the policy name :
