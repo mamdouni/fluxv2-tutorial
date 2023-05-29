@@ -1,18 +1,18 @@
-Flux automated image update
+Automated image update
 
-Automation name : {{ .AutomationObject }}
+Automation name: {{ .AutomationObject }}
 
 Files:
-{{range $filename, $_ := .Updated.Files -}}
-- {{$filename}}
-{{end -}}
+{{ range $filename, $_ := .Updated.Files -}}
+- {{ $filename }}
+{{ end -}}
 
 Objects:
-{{range $resource, $_ := .Updated.Objects -}}
-- {{$resource.Kind}} {{$resource.Name}}
-{{end -}}
+{{ range $resource, $_ := .Updated.Objects -}}
+- {{ $resource.Kind }} {{ $resource.Name }}
+{{ end -}}
 
 Images:
-{{range .Updated.Images -}}
+{{ range .Updated.Images -}}
 - {{.}}
-{{end -}}
+{{ end -}}    

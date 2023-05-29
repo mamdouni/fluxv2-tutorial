@@ -1,0 +1,30 @@
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImageUpdateAutomation
+metadata:
+  name: k8s-debugger-image-update
+  namespace: fluxv2-tutorial-deployment-uat
+spec:
+  git:
+    checkout:
+      ref:
+        branch: stable
+    commit:
+      author:
+        email: flux@users.noreply.github.com
+        name: flux
+      messageTemplate: "Automated image update\r\n\r\nAutomation name: {{ .AutomationObject
+        }}\r\n\r\nFiles:\r\n{{ range $filename, $_ := .Updated.Files -}}\r\n- {{ $filename
+        }}\r\n{{ end -}}\r\n\r\nObjects:\r\n{{ range $resource, $_ := .Updated.Objects
+        -}}\r\n- {{ $resource.Kind }} {{ $resource.Name }}\r\n{{ end -}}\r\n\r\nImages:\r\n{{
+        range .Updated.Images -}}\r\n- {{.}}\r\n{{ end -}}    "
+    push:
+      branch: stable
+  interval: 1m0s
+  sourceRef:
+    kind: GitRepository
+    name: fluxv2-tutorial-deployment-source
+  update:
+    path: .
+    strategy: Setters
+

@@ -60,8 +60,8 @@ flux create image update k8s-debugger-image-update \
 --checkout-branch=stable \
 --push-branch=stable \
 --author-name=flux \
---author-email=flux@users.noreply.github.com\
---commit-template="$(cat ./docs/templates/msg_template)"
+--author-email=flux@users.noreply.github.com \
+--commit-template="$(cat ./docs/templates/msg_template)" \
 --namespace=fluxv2-tutorial-deployment-uat \
 --export > imageautos/k8s-debugger-uat-automation.yaml
 ```
@@ -72,25 +72,40 @@ flux create image update k8s-debugger-image-update \
 The result :
 
 ```bash
-cat imagepolicies/k8s-debugger-uat-policy.yaml
+cat imageautos/k8s-debugger-uat-automation.yaml
 ```
 
 ```yaml
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta2
-kind: ImagePolicy
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImageUpdateAutomation
 metadata:
-  name: k8s-debugger-uat-policy
-  namespace: fluxv2-tutorial-deployment
+  name: k8s-debugger-image-update
+  namespace: fluxv2-tutorial-deployment-uat
 spec:
-  filterTags:
-    extract: $ts
-    pattern: ^uat-(?P<ts>[0-9]{12})-[a-f0-9]{7}$
-  imageRepositoryRef:
-    name: k8s-debugger-imagerepo
-  policy:
-    numerical:
-      order: asc
+  git:
+    checkout:
+      ref:
+        branch: stable
+    commit:
+      author:
+        email: flux@users.noreply.github.com
+        name: flux
+      messageTemplate: "Automated image update\r\n\r\nAutomation name: {{ .AutomationObject
+        }}\r\n\r\nFiles:\r\n{{ range $filename, $_ := .Updated.Files -}}\r\n- {{ $filename
+        }}\r\n{{ end -}}\r\n\r\nObjects:\r\n{{ range $resource, $_ := .Updated.Objects
+        -}}\r\n- {{ $resource.Kind }} {{ $resource.Name }}\r\n{{ end -}}\r\n\r\nImages:\r\n{{
+        range .Updated.Images -}}\r\n- {{.}}\r\n{{ end -}}    "
+    push:
+      branch: stable
+  interval: 1m0s
+  sourceRef:
+    kind: GitRepository
+    name: fluxv2-tutorial-deployment-source
+  update:
+    path: .
+    strategy: Setters
 ```
 
 
@@ -98,4 +113,5 @@ spec:
 ## References
 
 - https://app.pluralsight.com/course-player?clipId=abfc7f29-f092-4a2e-ae0a-f5aab3ebac20
+- https://app.pluralsight.com/course-player?clipId=bf402016-a213-40a0-a852-5859f6c90132
 - https://fluxcd.io/flux/components/image/imageupdateautomations/#commit-message-template-data
