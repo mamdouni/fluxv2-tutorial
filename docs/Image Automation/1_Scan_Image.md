@@ -49,8 +49,20 @@ dont forget to add the kustomization file.
 ```bash
 kustomize create --autodetect
 ```
+## Check out
 
-kubectl get imagerepositories.image.toolkit.fluxcd.io
+After pushing, check if the image repo has been created :
+
+```bash
+kubectl get imagerepositories.image.toolkit.fluxcd.io -n fluxv2-tutorial-deployment
+```
+
+```text
+NAME                     LAST SCAN              TAGS
+k8s-debugger-imagerepo   2023-05-29T11:10:15Z   2
+```
+
+As you can see, we have the last scan and the number of pulled tags.
 
 ## References
 - https://app.pluralsight.com/course-player?clipId=a0387786-122e-403f-866d-946e3c99a9ce
