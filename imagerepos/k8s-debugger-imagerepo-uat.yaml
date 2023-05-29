@@ -3,7 +3,7 @@ apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImageRepository
 metadata:
   name: k8s-debugger-imagerepo
-  namespace: fluxv2-tutorial-deployment
+  namespace: fluxv2-tutorial-deployment-uat
 spec:
   image: docker.io/mouhamedali/k8s-debugger
   interval: 2m0s

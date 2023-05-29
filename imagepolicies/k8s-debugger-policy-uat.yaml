@@ -10,7 +10,7 @@ spec:
     pattern: ^uat-(?P<ts>[0-9]{12})-[a-f0-9]{7}$
   imageRepositoryRef:
     name: k8s-debugger-imagerepo
-    namespace: fluxv2-tutorial-deployment
+    namespace: fluxv2-tutorial-deployment-uat
   policy:
     numerical:
       order: asc

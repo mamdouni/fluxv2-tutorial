@@ -113,36 +113,65 @@ spec:
 kubectl get secrets --namespace fluxv2-tutorial-deployment-uat fluxv2-tutorial-deployment-secret -o yaml
 ```
 ```text
+apiVersion: v1
+data:
+  identity: LS0tLS1CRUdJTiBQUklWQVRFIEtFWS0tLS0tCk1JRzJBZ0VBTUJBR0J5cUdTTTQ5QWdFR0JTdUJCQUFpQklHZU1JR2JBZ0VCQkRERGNrVEdHTExQcEhrOWU3akkKT0swUnRScWVNc0taVjdqQk9nQVdxYXFXbllxWGtaMTNaUUpMbnRpSUpJOUFHbW1oWkFOaUFBUWlVbXFm
 ```
 
 ```bash
 k get gitrepositories.source.toolkit.fluxcd.io -n fluxv2-tutorial-deployment-uat
 ```
 ```text
+NAME                                URL                                                            AGE   READY   STATUS
+fluxv2-tutorial-deployment-source   ssh://git@github.com/mamdouni/fluxv2-tutorial-deployment.git   97s   True    stored artifact for revision 'stable@sha1:28f2cfcc12b4523416ea86fd575c25042acc8687'
 ```
+
+Yes, we have the link now to the stable branch.
 
 ```bash
 k get kustomizations.kustomize.toolkit.fluxcd.io -n fluxv2-tutorial-deployment-uat
 ```
 ```text
+NAME                                       AGE     READY   STATUS
+fluxv2-tutorial-deployment-kustomization   2m22s   True    Applied revision: stable@sha1:28f2cfcc12b4523416ea86fd575c25042acc8687
 ```
+
+The kustomization controller follows the source revision.
+
+I tried to use the same image repo from ``fluxv2-tutorial-deployment`` but i had this ACL error :
+```bash
+k logs image-reflector-controller-666f9d9bf7-b89z8 -n flux-system
+```
+```text
+{"level":"error","ts":"2023-05-29T14:00:49.563Z","msg":"failed to get the referred ImageRepository: access denied: 'fluxv2-tutorial-deployment/k8s-debugger-imagerepo' can't be accessed due to missing ACL labels on 'accessFrom'","controller":"imagepolicy","controllerGroup":"image.toolkit.fluxcd.io","controllerKind":"ImagePolicy","ImagePolicy":{"name":"k8s-debugger-policy","namespace":"fluxv2-tutorial-deployment-uat"},"namespace":"fluxv2-tutorial-deployment-uat","name":"k8s-debugger-policy","reconcileID":"4385bccb-70d4-40cb-b561-484d0e5938ea","error":"AccessDenied"}
+```
+
+I will create my own imagerepo for the uat.
 
 ```bash
 kubectl get imagerepositories.image.toolkit.fluxcd.io -n fluxv2-tutorial-deployment
 ```
 ```text
+NAME                     LAST SCAN              TAGS
+k8s-debugger-imagerepo   2023-05-29T13:40:45Z   3
 ```
+
+Image Repo still here. May be we need to move this to a shared namespace.
 
 ```bash
 kubectl get imagepolicies.image.toolkit.fluxcd.io -n fluxv2-tutorial-deployment-uat
 ```
 ```text
+NAME                  LATESTIMAGE
+k8s-debugger-policy
 ```
 
 ```bash
 kubectl get imageupdateautomations.image.toolkit.fluxcd.io -n fluxv2-tutorial-deployment-uat
 ```
 ```text
+NAME                        LAST RUN
+k8s-debugger-image-update   2023-05-29T13:48:06Z
 ```
 
 ## References
