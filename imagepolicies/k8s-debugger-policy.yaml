@@ -8,8 +8,7 @@ spec:
   imageRepositoryRef:
     name: k8s-debugger-imagerepo
   filterTags:
-    pattern: ^[1-9]{1}\.[0-9]{1}\.[0-9]{1}-*$
+    pattern: ^[1-9]{1}\.[0-9]{1}\.[0-9]{1}-[0-9]{12}-[a-f0-9]{7}$
   policy:
     semver:
       range: '>=1.x.x'
-
