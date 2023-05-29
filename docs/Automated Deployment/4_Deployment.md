@@ -86,3 +86,49 @@ cd sources && kustomize create --autodetect
 ```bash
 cd .. && cd kustomizations && kustomize create --autodetect && ..
 ```
+
+## Check it out
+
+To force the flux reconciliation, you can use this command :
+```bash
+flux reconcile source git flux-system && flux reconcile kustomization flux-system
+```
+
+Check the nginx deployment :
+```bash
+k get all -n fluxv2-tutorial-deployment
+```
+
+```log
+NAME                                    READY   STATUS    RESTARTS   AGE
+pod/nginx-deployment-85996f8dbd-lfpm8   1/1     Running   0          88s
+pod/nginx-deployment-85996f8dbd-xdb66   1/1     Running   0          88s
+
+NAME                               READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/nginx-deployment   2/2     2            2           88s
+
+NAME                                          DESIRED   CURRENT   READY   AGE
+replicaset.apps/nginx-deployment-85996f8dbd   2         2         2       88s
+```
+
+Check the git source controller :
+
+```bash
+k get gitrepositories.source.toolkit.fluxcd.io -n fluxv2-tutorial-deployment
+```
+
+```log
+NAME                                URL                                                            AGE     READY   STATUS
+fluxv2-tutorial-deployment-source   ssh://git@github.com/mamdouni/fluxv2-tutorial-deployment.git   3m24s   True    stored artifact for revision 'main@sha1:785c439f55d544064e0d4237122b3746b0e5abc4'
+```
+
+Check the kustomization controller :
+
+```bash
+k get kustomizations.kustomize.toolkit.fluxcd.io -n fluxv2-tutorial-deployment
+```
+
+```log
+NAME                                       AGE     READY   STATUS
+fluxv2-tutorial-deployment-kustomization   4m16s   True    Applied revision: main@sha1:785c439f55d544064e0d4237122b3746b0e5abc4
+```
