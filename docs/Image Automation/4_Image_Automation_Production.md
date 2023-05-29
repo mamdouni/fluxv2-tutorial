@@ -135,37 +135,43 @@ kubectl get imagepolicies.image.toolkit.fluxcd.io -n fluxv2-tutorial-deployment
 ```
 ```text
 NAME                  LATESTIMAGE
-k8s-debugger-policy
+k8s-debugger-policy   docker.io/mouhamedali/k8s-debugger:1.0.0-202305291659-815a0fd
 ```
 
 ```bash
-kubectl get imageupdateautomations.image.toolkit.fluxcd.io -n fluxv2-tutorial-deployment-uat
+kubectl get imageupdateautomations.image.toolkit.fluxcd.io -n fluxv2-tutorial-deployment
 ```
 ```text
 NAME                        LAST RUN
-k8s-debugger-image-update   2023-05-29T14:08:39Z
+k8s-debugger-image-update   2023-05-29T17:04:22Z
 ```
 
-Now, i will build a new ``uat`` or ``staging`` version. You can check from the repo in the references to know how to do it.
-After building the new test release, i ended up with this tag ``uat-202305291410-815a0fd``.
+Now, i will build a new ``corporate``. You can check from the repo in the references to know how to do it.
+After building the new test release, i ended up with this tag ``1.1.0-202305291710-014c11f``.
 
 ```bash
-kubectl get imagerepositories.image.toolkit.fluxcd.io -n fluxv2-tutorial-deployment-uat
+kubectl get imagerepositories.image.toolkit.fluxcd.io -n fluxv2-tutorial-deployment
 ```
 ```text
 NAME                     LAST SCAN              TAGS
-k8s-debugger-imagerepo   2023-05-29T14:11:35Z   5
+k8s-debugger-imagerepo   2023-05-29T17:14:03Z   8
 ```
 
-New tag has been scanned.
+New tag has been scanned. The full list of our tags for the corporate version are as below :
+```text
+1.0.0-202305291659-815a0fd
+1.1.0-202305291710-014c11f
+1.0.2-202305291713-014c11f
+```
 
+By the way, the ``1.0.2-202305291713-014c11f`` has been build after the ``1.1.0-202305291710-014c11f`` but flux will not select it as it not the max of the versions.
 
 ```bash
-kubectl get imagepolicies.image.toolkit.fluxcd.io -n fluxv2-tutorial-deployment-uat
+kubectl get imagepolicies.image.toolkit.fluxcd.io -n fluxv2-tutorial-deployment
 ```
 ```text
 NAME                  LATESTIMAGE
-k8s-debugger-policy   docker.io/mouhamedali/k8s-debugger:uat-202305291410-815a0fd
+k8s-debugger-policy   docker.io/mouhamedali/k8s-debugger:1.1.0-202305291710-014c11f
 ```
 
 Nice, the image policy selected my new tag.
@@ -175,20 +181,18 @@ kubectl get imageupdateautomations.image.toolkit.fluxcd.io -n fluxv2-tutorial-de
 ```
 ```text
 NAME                        LAST RUN
-k8s-debugger-image-update   2023-05-29T14:10:40Z
+k8s-debugger-image-update   2023-05-29T17:16:30Z
 ```
 
 The image automation succeeded to push the new image tag with an awesome commit message :
-- https://github.com/mamdouni/fluxv2-tutorial-deployment/commit/f9603e9f14c4db5ee7583a0f93f587427abc0647
+- https://github.com/mamdouni/fluxv2-tutorial-deployment/commit/495f06f509004766936c21e6f6f6432dedc067e9
 
 After this, the kustomization controller will deploy these changes respecting the gitpods principales and the flux cd process.
 
 Last check is on the deployed app :
-![2023-05-29_16h21_34](https://github.com/mamdouni/fluxv2-tutorial/assets/61866853/421ccfe5-34a7-47b5-b89b-0ee23b34d5c8)
+![2023-05-29_19h19_37](https://github.com/mamdouni/fluxv2-tutorial-deployment/assets/61866853/15201836-7e5c-460d-b86d-989776d4f5d8)
 
-Works fine, let's do the production environment.
-
-## Check it out
+## Debug
 
 To debug image policy error, use this command :
 ```bash
