@@ -109,6 +109,11 @@ spec:
 ```
 
 ### Check it out
+```bash
+kubectl get secrets --namespace fluxv2-tutorial-deployment-uat fluxv2-tutorial-deployment-secret -o yaml
+```
+```text
+```
 
 ```bash
 k get gitrepositories.source.toolkit.fluxcd.io -n fluxv2-tutorial-deployment-uat
