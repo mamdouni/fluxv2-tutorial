@@ -153,8 +153,6 @@ NAME                     LAST SCAN              TAGS
 k8s-debugger-imagerepo   2023-05-29T14:07:33Z   4
 ```
 
-Image Repo still here. May be we need to move this to a shared namespace.
-
 ```bash
 kubectl get imagepolicies.image.toolkit.fluxcd.io -n fluxv2-tutorial-deployment-uat
 ```
