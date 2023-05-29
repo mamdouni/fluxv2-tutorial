@@ -200,3 +200,4 @@ k logs image-reflector-controller-666f9d9bf7-b89z8 -n flux-system
 - https://app.pluralsight.com/course-player?clipId=bf402016-a213-40a0-a852-5859f6c90132
 - https://fluxcd.io/flux/components/image/imageupdateautomations/#commit-message-template-data
 - https://github.com/mamdouni/k8s-debugger
+- https://regex101.com/r/Ly7O1x/3/

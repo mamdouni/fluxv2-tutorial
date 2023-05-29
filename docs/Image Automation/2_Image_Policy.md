@@ -128,4 +128,5 @@ Well, Nothing happens because flux can't be sure which component to update. Imag
 - https://app.pluralsight.com/course-player?clipId=33855d6d-8ff1-47b3-b68c-eb365256254e
 - https://github.com/mamdouni/k8s-debugger
 - https://hub.docker.com/repository/docker/mouhamedali/k8s-debugger/tags?page=1&ordering=last_updated
+- https://fluxcd.io/flux/guides/sortable-image-tags/
 
