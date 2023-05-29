@@ -28,7 +28,7 @@ Add the public key to the github repo.
 ```bash
 flux create source git fluxv2-tutorial-deployment-source \
 --url=ssh://git@github.com/mamdouni/fluxv2-tutorial-deployment.git \
---branch=main \
+--branch=stable \
 --secret-ref=fluxv2-tutorial-deployment-secret \
 --namespace=fluxv2-tutorial-deployment-uat \
 --export > sources/fluxv2-tutorial-deployment-source-uat.yaml
@@ -108,7 +108,37 @@ spec:
     strategy: Setters
 ```
 
+### Check it out
 
+```bash
+k get gitrepositories.source.toolkit.fluxcd.io -n fluxv2-tutorial-deployment-uat
+```
+```text
+```
+
+```bash
+k get kustomizations.kustomize.toolkit.fluxcd.io -n fluxv2-tutorial-deployment-uat
+```
+```text
+```
+
+```bash
+kubectl get imagerepositories.image.toolkit.fluxcd.io -n fluxv2-tutorial-deployment
+```
+```text
+```
+
+```bash
+kubectl get imagepolicies.image.toolkit.fluxcd.io -n fluxv2-tutorial-deployment-uat
+```
+```text
+```
+
+```bash
+kubectl get imageupdateautomations.image.toolkit.fluxcd.io -n fluxv2-tutorial-deployment-uat
+```
+```text
+```
 
 ## References
 
