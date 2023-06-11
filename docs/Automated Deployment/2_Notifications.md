@@ -30,7 +30,7 @@ And use it to create the secret :
 k create secret generic google-chat-webhook-secret --from-file=address=./webhook-address.txt
 ```
 
-```text
+```bash
 rm webhook-address.txt
 ```
 
@@ -75,8 +75,18 @@ After pushing the files and waiting for the reconciliation.
 k get providers.notification.toolkit.fluxcd.io
 ```
 
+```text
+NAME                   AGE     READY   STATUS
+google-chat-provider   4m12s   True    Initialized
+```
+
 ```bash
 k get alerts.notification.toolkit.fluxcd.io
+```
+
+```text
+NAME                            AGE     READY   STATUS
+test-flux-cd-google-bot-alert   4m26s   True    Initialized
 ```
 
 ## References
