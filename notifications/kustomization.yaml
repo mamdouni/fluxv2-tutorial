@@ -3,5 +3,7 @@ kind: Kustomization
 resources:
 - alerts/test-flux-cd-google-bot-alert.yaml
 - alerts/test-flux-cd-google-staging-alert.yaml
+- alerts/test-flux-cd-google-production-alert.yaml
 - providers/google-chat-provider.yaml
 - providers/google-chat-provider-staging.yaml
+- providers/google-chat-provider-production.yaml

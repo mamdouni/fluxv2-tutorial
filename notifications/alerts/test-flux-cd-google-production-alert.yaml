@@ -1,0 +1,16 @@
+---
+apiVersion: notification.toolkit.fluxcd.io/v1beta2
+kind: Alert
+metadata:
+  name: test-flux-cd-google-production-alert
+  namespace: fluxv2-tutorial-deployment-uat
+spec:
+  eventSeverity: info
+  eventSources:
+  - kind: GitRepository
+    name: '*'
+  - kind: Kustomization
+    name: '*'
+  providerRef:
+    name: google-chat-provider-production
+
