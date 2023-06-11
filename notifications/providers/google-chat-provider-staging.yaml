@@ -1,0 +1,13 @@
+---
+apiVersion: notification.toolkit.fluxcd.io/v1beta2
+kind: Provider
+metadata:
+  name: google-chat-provider-staging
+  namespace: fluxv2-tutorial-deployment-uat
+spec:
+  channel: Test Flux CD
+  secretRef:
+    name: google-chat-webhook-secret
+  type: googlechat
+  username: FluxBot
+

@@ -4,3 +4,4 @@ resources:
 - alerts/test-flux-cd-google-bot-alert.yaml
 - alerts/test-flux-cd-google-staging-alert.yaml
 - providers/google-chat-provider.yaml
+- providers/google-chat-provider-staging.yaml

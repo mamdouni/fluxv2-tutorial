@@ -12,5 +12,5 @@ spec:
   - kind: Kustomization
     name: '*'
   providerRef:
-    name: google-chat-provider
+    name: google-chat-provider-staging
 
