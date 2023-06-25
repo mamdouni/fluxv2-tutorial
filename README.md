@@ -13,6 +13,7 @@ You can follow it using these ordered links :
 - [Notifications](docs/Automated%20Deployment/2_Notifications.md)
 - [Authentication](docs/Automated%20Deployment/3_Authentication.md)
 - [Deployment](docs/Automated%20Deployment/4_Deployment.md)
+- [Debug Flux](docs/Automated%20Deployment/5_Debug.md)
 
 **Image Automation** :
 - [Scan Image](docs/Image%20Automation/1_Scan_Image.md)
@@ -23,3 +24,7 @@ You can follow it using these ordered links :
 
 **Helm Releases** :
 - [Scan Image](docs/Helm%20Controller/1_Repositories.md)
+
+
+You can also check the devoxx demo here :
+- https://github.com/kalioz/fluxv2-demo/blob/main/docs/00.requirements.md

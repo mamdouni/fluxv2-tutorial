@@ -11,8 +11,6 @@ spec:
     name: '*'
   - kind: Kustomization
     name: '*'
-  - kind: HelmRepository
-    name: '*'
   providerRef:
     name: google-chat-provider
 

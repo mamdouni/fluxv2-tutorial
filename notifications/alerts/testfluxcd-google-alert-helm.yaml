@@ -1,0 +1,14 @@
+---
+apiVersion: notification.toolkit.fluxcd.io/v1beta2
+kind: Alert
+metadata:
+  name: testfluxcd-google-chat-alert
+  namespace: fluxv2-tutorial-deployment-helm
+spec:
+  eventSeverity: info
+  eventSources:
+  - kind: HelmRepository
+    name: '*'
+  providerRef:
+    name: testfluxcd-google-chat-provider
+

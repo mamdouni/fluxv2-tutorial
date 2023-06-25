@@ -2,30 +2,38 @@
 
 In this demo we will configure a new helm repository souci using the github container registry.
 
-The first thing that we will do is to add the helm notifications.
+## Helm Alerts
 
-```bash 
-$ cat notifications/alerts/test-flux-cd-google-bot-alert.yaml
+The first thing that we will do is to add the helm notifications.
+Add a secret :
+
+```bash
+k create secret generic testfluxcd-google-chat-webhook-secret \
+--namespace=fluxv2-tutorial-deployment-helm \
+--from-file=address=./webhook-address.txt
 ```
 
-```text
----
-apiVersion: notification.toolkit.fluxcd.io/v1beta2
-kind: Alert
-metadata:
-  name: test-flux-cd-google-bot-alert
-  namespace: default
-spec:
-  eventSeverity: info
-  eventSources:
-  - kind: GitRepository
-    name: '*'
-  - kind: Kustomization
-    name: '*'
-  - kind: HelmRepository
-    name: '*'
-  providerRef:
-    name: google-chat-provider
+Add a provider :
+
+```bash
+flux create alert-provider testfluxcd-google-chat-provider \
+--type=googlechat \
+--secret-ref=testfluxcd-google-chat-webhook-secret \
+--channel='Test Flux CD' \
+--username=FluxBot \
+--namespace=fluxv2-tutorial-deployment-helm \
+--export > notifications/providers/testfluxcd-google-chat-provider-helm.yaml
+```
+
+And an alert :
+
+```bash
+flux create alert testfluxcd-google-chat-alert \
+--event-severity=info \
+--event-source=HelmRepository/* \
+--provider-ref=testfluxcd-google-chat-provider \
+--namespace=fluxv2-tutorial-deployment-helm \
+--export > notifications/alerts/testfluxcd-google-alert-helm.yaml
 ```
 
 ## Add a new namespace
@@ -82,6 +90,15 @@ flux create source helm mamdouni-ghrc-helm-source \
 ```
 
 ## Check it out
+
+```bash
+$ k get helmrepositories.source.toolkit.fluxcd.io -n fluxv2-tutorial-deployment-helm
+```
+
+```text
+NAME                        URL                             AGE   READY   STATUS
+mamdouni-ghrc-helm-source   oci://ghrc.io/mamdouni/charts   53s   True    Helm repository is ready
+```
 
 ## References
 - https://app.pluralsight.com/course-player?clipId=42e9cd18-6667-4ab5-bb8d-00966aa7b19c
