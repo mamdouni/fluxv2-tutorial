@@ -3,4 +3,4 @@ kind: Kustomization
 resources:
 - fluxv2-tutorial-deployment-source.yaml
 - fluxv2-tutorial-deployment-source-uat.yaml
-- mamdouni-ghrc-helm-source.yaml
+- mamdouni-ghcr-helm-source.yaml

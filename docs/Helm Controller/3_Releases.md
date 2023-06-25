@@ -22,7 +22,7 @@ By the way, we are using this Chart :
 Let's add the release now :
 ```bash
 flux create helmrelease k8s-debugger-release \
---source=HelmRepository/mamdouni-ghrc-helm-source \
+--source=HelmRepository/mamdouni-ghcr-helm-source \
 --chart=k8s-debugger \
 --values=./helmreleases/values.yaml \
 --namespace=fluxv2-tutorial-deployment-helm \
@@ -38,7 +38,7 @@ rm ./helmreleases/values.yaml
 After pushing the files and waiting for the reconciliation.
 
 ```bash
-k get providers.notification.toolkit.fluxcd.io
+k get helmreleases.helm.toolkit.fluxcd.io -n fluxv2-tutorial-deployment-helm
 ```
 
 ```text
@@ -46,15 +46,18 @@ NAME                   AGE     READY   STATUS
 google-chat-provider   4m12s   True    Initialized
 ```
 
+Let's check if there are a created charts :
+
 ```bash
-k get alerts.notification.toolkit.fluxcd.io
+k get helmcharts.source.toolkit.fluxcd.io -n fluxv2-tutorial-deployment-helm
 ```
 
 ```text
-NAME                            AGE     READY   STATUS
-test-flux-cd-google-bot-alert   4m26s   True    Initialized
+NAME                   AGE     READY   STATUS
+google-chat-provider   4m12s   True    Initialized
 ```
 
 ## References
-https://app.pluralsight.com/course-player?clipId=a19342df-716a-467b-9118-e792a71e47cd
-https://app.pluralsight.com/course-player?clipId=3970b98e-bead-44b2-bcb5-74b257a3cf90
+- https://app.pluralsight.com/course-player?clipId=a19342df-716a-467b-9118-e792a71e47cd
+- https://app.pluralsight.com/course-player?clipId=3970b98e-bead-44b2-bcb5-74b257a3cf90
+- https://fluxcd.io/flux/components/source/helmcharts/

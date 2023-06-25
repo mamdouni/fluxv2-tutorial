@@ -7,10 +7,10 @@ In this demo we will configure a new helm repository souci using the github cont
 Add a secret :
 
 ```bash 
-k create secret docker-registry ghrc-mamdouni-charts-auth \
---docker-server=ghrc.io \
+k create secret docker-registry ghcr-mamdouni-charts-auth \
+--docker-server=ghcr.io \
 --docker-username=mamdouni \
---docker-password="$(cat ./ghrc-token)" \
+--docker-password="$(cat ./ghcr-token)" \
 --namespace=fluxv2-tutorial-deployment-helm
 ```
 
@@ -29,18 +29,19 @@ $ k get secret -n fluxv2-tutorial-deployment-helm
 ```
 
 ```text
-NAME                        TYPE                             DATA   AGE
-ghrc-mamdouni-charts-auth   kubernetes.io/dockerconfigjson   1      23s
+NAME                                    TYPE                             DATA   AGE
+ghcr-mamdouni-charts-auth               kubernetes.io/dockerconfigjson   1      8s
+testfluxcd-google-chat-webhook-secret   Opaque                           1      59m
 ```
 
 ## Add an Helm Source Controller
 
 ```bash
-flux create source helm mamdouni-ghrc-helm-source \
---url=oci://ghrc.io/mamdouni/charts \
---secret-ref=ghrc-mamdouni-charts-auth \
+flux create source helm mamdouni-ghcr-helm-source \
+--url=oci://ghcr.io/mamdouni/charts \
+--secret-ref=ghcr-mamdouni-charts-auth \
 --namespace=fluxv2-tutorial-deployment-helm \
---export > sources/mamdouni-ghrc-helm-source.yaml
+--export > sources/mamdouni-ghcr-helm-source.yaml
 ```
 
 ## Check it out
