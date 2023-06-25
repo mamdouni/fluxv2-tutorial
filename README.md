@@ -25,7 +25,15 @@ You can follow it using these ordered links :
 **Helm Releases** :
 - [Helm Notifications](docs/Helm%20Controller/1_Notifications.md)
 - [Helm Source](docs/Helm%20Controller/2_Repositories.md)
+- [Helm Releases](docs/Helm%20Controller/3_Releases.md)
+- [Helm Remediation](docs/Helm%20Controller/4_Remediation.md)
+
 
 
 You can also check the devoxx demo here :
 - https://github.com/kalioz/fluxv2-demo/blob/main/docs/00.requirements.md
+
+
+Some wonderful resources to check :
+- https://opengitops.dev/
+- https://www.gitopsdays.com/
