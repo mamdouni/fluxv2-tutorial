@@ -1,0 +1,18 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: k8s-debugger-release
+  namespace: fluxv2-tutorial-deployment-helm
+spec:
+  chart:
+    spec:
+      chart: k8s-debugger
+      reconcileStrategy: ChartVersion
+      sourceRef:
+        kind: HelmRepository
+        name: mamdouni-ghrc-helm-source
+  interval: 1m0s
+  values:
+    replicaCount: 3
+
