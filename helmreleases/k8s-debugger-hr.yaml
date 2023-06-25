@@ -11,7 +11,7 @@ spec:
       reconcileStrategy: ChartVersion
       sourceRef:
         kind: HelmRepository
-        name: mamdouni-ghrc-helm-source
+        name: mamdouni-ghcr-helm-source
   interval: 1m0s
   values:
     replicaCount: 3

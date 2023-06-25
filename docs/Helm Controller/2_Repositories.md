@@ -52,7 +52,7 @@ $ k get helmrepositories.source.toolkit.fluxcd.io -n fluxv2-tutorial-deployment-
 
 ```text
 NAME                        URL                             AGE   READY   STATUS
-mamdouni-ghrc-helm-source   oci://ghrc.io/mamdouni/charts   53s   True    Helm repository is ready
+mamdouni-ghcr-helm-source   oci://ghcr.io/mamdouni/charts   30s   True    Helm repository is ready
 ```
 
 ## References
