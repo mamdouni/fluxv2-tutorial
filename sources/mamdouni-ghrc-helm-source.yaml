@@ -1,0 +1,13 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
+metadata:
+  name: mamdouni-ghrc-helm-source
+  namespace: fluxv2-tutorial-deployment-helm
+spec:
+  interval: 1m0s
+  secretRef:
+    name: ghrc-mamdouni-charts-auth
+  type: oci
+  url: oci://ghrc.io/mamdouni/charts
+

@@ -15,7 +15,7 @@ We can't use the provider from the default namespace because i think it's imposs
 
 Add a secret :
 
-```bash
+```bash 
 k create secret generic google-chat-webhook-secret --namespace=fluxv2-tutorial-deployment-uat --from-file=address=./webhook-address.txt
 ```
 
